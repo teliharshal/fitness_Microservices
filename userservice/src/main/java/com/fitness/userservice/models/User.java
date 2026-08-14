@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 @Data
-public class users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -19,7 +19,7 @@ public class users {
     private String email;
 
     @Column(nullable = false)
-    private String pasword;
+    private String password;
     private String firstname;
     private String lastname;
 
