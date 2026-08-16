@@ -4,7 +4,6 @@ import lombok.Data;
 import java.time.LocalDateTime;
 @Data
 public class UserResponse {
-
     private String id;
     private String email;
     private String pasword;
@@ -12,5 +11,4 @@ public class UserResponse {
     private String lastname;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
 }
