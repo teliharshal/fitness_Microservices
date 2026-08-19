@@ -7,6 +7,9 @@ import com.fitness.ActivityService.repository.ActivityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ActivityService {
@@ -31,6 +34,7 @@ public class ActivityService {
     private ActiviyResponse maptoResponse(Activity activity) {
         ActiviyResponse response = new ActiviyResponse();
         response.setId(activity.getId());
+        response.setUserId(activity.getUserId());
         response.setType(activity.getType());
         response.setDuration(activity.getDuration());
         response.setCaloriesBurned(activity.getCaloriesBurned());
@@ -40,5 +44,17 @@ public class ActivityService {
         response.setUpdatedAt(activity.getUpdatedAt());
 
         return response;
+    }
+
+
+    public List<ActiviyResponse> getUserActivities(String userId) {
+         List<Activity> activityList = repository.findByUserId(userId);
+
+        System.out.println("User ID received: " + userId);
+        System.out.println("Activities found: " + activityList.size());
+
+        return activityList.stream()
+                .map(this::maptoResponse)
+                .toList();
     }
 }

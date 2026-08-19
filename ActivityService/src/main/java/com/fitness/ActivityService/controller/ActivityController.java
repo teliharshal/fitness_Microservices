@@ -3,21 +3,27 @@ package com.fitness.ActivityService.controller;
 import com.fitness.ActivityService.dto.ActivityRequest;
 import com.fitness.ActivityService.dto.ActiviyResponse;
 import com.fitness.ActivityService.services.ActivityService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/activities")
+@RequiredArgsConstructor
 public class ActivityController {
 
-    private ActivityService activityService;
+    private final ActivityService activityService;
+
+    @GetMapping("/{userId}")
+    public List<ActiviyResponse> getUserActivities(@PathVariable  String userId){
+        return activityService.getUserActivities(userId);
+    }
 
     @PostMapping
-    public ResponseEntity<ActiviyResponse> trackActivity(@RequestBody ActivityRequest request){
-       return ResponseEntity.ok(activityService.trackActivity(request));
+    public ActiviyResponse trackActivity(@RequestBody ActivityRequest request){
+       return activityService.trackActivity(request);
     }
 
 }
